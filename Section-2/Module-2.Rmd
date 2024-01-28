@@ -1,1 +1,104 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
 
+Paragraphs and code chunks are divided whenever deemed necessary.
+
+```{r data types}
+x <- 4L # Integer
+typeof(x)
+
+y <- 2.5 # double
+typeof(y)
+
+z <- 3+2i # complex
+typeof(z)
+
+a <- "h" # character
+typeof(a)
+
+q1 <- T # logical
+typeof(q1)
+
+q2 <- FALSE
+typeof(q2)
+
+A<-10
+B<-5
+C<-A+B
+C
+var1 <- 2.5
+var2 <- 4
+result <- var1/var2
+result
+answer <- sqrt(var2)
+answer
+typeof(answer)
+
+greeting <- "Hello"
+name <- "Bob"
+message <- paste(greeting,name,sep=" ")
+message
+# greeting+" "+name does not work in R
+```
+
+Using variables and operations
+
+```{r variable operations}
+4 < 5
+10 > 100
+result <- (4 == 5)
+typeof(result)
+result <- !result
+result2 <- F
+result | result2
+result & result2
+isTRUE(result)
+```
+
+LOOPS
+
+```{r loops}
+counter<-1
+while(counter<11){
+  print(counter)
+  counter<-counter+1
+}
+
+for(i in 1:5){
+  print(i)
+}
+
+x <- rnorm(4,mean=0,sd=1) # generates n random numbers from uniform distribution with the mean and standard deviation provided.
+if(x[1]>0){
+  print("It is greater than 0")
+} else{
+  print("Less than zero")
+}
+
+# do not write else in the next line. Rather continue in the line where you typed the ending flower bracket for if
+
+```
+
+Exercise: Test Law of Large Numbers
+
+$Mean(X_n) -> E(X)$ as $n -> {inf}$
+
+```{r Law of Large Numbers}
+
+# Mean of N randomly distributed numbers in a Uniform Distribution 
+# approaches E(X)=68.2% as N-> infinity
+
+n=100
+proportion=0
+for(i in 1:n){
+  temp <- rnorm(1)
+  if((temp<=1) & (temp>=-1)){
+    proportion=proportion+1
+  }
+}
+proportion=proportion/n
+proportion # is falling near 0.682 as we increase N
+
+```
