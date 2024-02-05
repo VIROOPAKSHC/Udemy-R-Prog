@@ -38,9 +38,9 @@ expenses <- c(12051.82, 5695.07, 12319.20, 12089.72, 8658.57, 840.20, 3285.73, 5
 
 profits <- revenue - expenses
 
-profits.after.tax <- profits*(0.7)
+profits.after.tax <- round(profits*(0.7),2)
 
-profit.margin <- (profits.after.tax / revenue) * 100
+profit.margin <- round((profits.after.tax / revenue) * 100,2)
 
 good.months <- which(profits.after.tax > mean(profits.after.tax))
 
@@ -52,10 +52,11 @@ best.month <- which(profits.after.tax == max(profits.after.tax)
 worst.month <- which(profits.after.tax == min(profits.after.tax))
 
 answers <- list()
-
-answers$profits <- profits
-answers$PAT <- profits.after.tax
-answers$ProfitMargin <- profit.margin
+answers$revenue <- round(revenue/1000,0)
+answers$expenses <- round(expenses/1000,0)
+answers$profits <- round(profits/1000,0)
+answers$PAT <- round(profits.after.tax/1000,0)
+answers$ProfitMargin <- (profit.margin)
 answers$GoodMonths <- good.months
 answers$BadMonths <- bad.months
 answers$BestMonth <- best.month
