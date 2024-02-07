@@ -1,1 +1,196 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+```{r}
+df <- read.csv("C://Users//kabali//Downloads//P2-Movie-Ratings.csv")
+df
+colnames(df) <- c("Film","Genre","RTRating","AudienceRating","Budget","Year")
+
+summary(df)
+
+str(df)
+
+factor(df$Year)
+
+df$Year <- factor(df$Year)
+
+summary(df)
+
+library(ggplot2)
+
+ggplot(data=df,aes(x=RTRating,y=AudienceRating))
+
+
+qplot(data=df,x=RTRating,y=AudienceRating,colour=Genre,size=Budget)
+
+p <- ggplot(data=df,aes(x=RTRating,y=AudienceRating,colour=Genre,size=Budget)) + geom_point()
+
+p + geom_point()
+p + geom_line()
+
+p + geom_line() + geom_point()
+
+p + geom_point() + geom_line()
+
+q <- ggplot(data=df,aes(x=RTRating,y=AudienceRating,colour=Genre,size=Budget))
+
+q + geom_point(aes(size=RTRating))
+
+q + geom_point(aes(colour=Budget))
+
+q + geom_point()
+
+q + geom_point(aes(x=Budget)) +
+  xlab("Budget Millions $$$")
+
+q + geom_line(size=1) + geom_point()
+
+r <- ggplot(data=df,aes(RTRating,y=AudienceRating))
+
+r + geom_point()
+
+r + geom_point(aes(colour=Genre))
+
+r + geom_point(colour="DarkGreen")
+
+r + geom_point(aes(size=Budget))
+
+r + geom_point(size=10)
+# Error 
+# r + geom_point(aes(size=10))
+
+s <- ggplot(data=df,aes(x=Budget))
+s + geom_histogram(binwidth=10)
+
+s + geom_histogram(binwidth=10,fill="Green")
+
+s + geom_histogram(binwidth=10,aes(fill=Genre))
+
+s + geom_histogram(binwidth=10,aes(fill=Genre),colour="Black")
+
+s + geom_density(aes(fill=Genre))
+
+s + geom_density(aes(fill=Genre),position="stack")
+
+t <- ggplot(data=df,aes(x=AudienceRating))
+
+t + geom_histogram(binwidth=10,fill="white",color="blue")
+
+t <- ggplot(data=df)
+t + geom_histogram(binwidth=10,aes(x=AudienceRating),fill="white",color="blue")
+
+u <- ggplot(data=df,aes(x=RTRating,y=AudienceRating,colour=Genre))
+
+u + geom_point() + geom_smooth(fill=NA)
+
+u + geom_boxplot()
+
+u + geom_boxplot(size=1.2) + geom_point()
+
+u + geom_boxplot(size=1.2)+geom_jitter()
+
+u + geom_jitter() + geom_boxplot(size=1.2,alpha=0.5)
+
+
+v <- ggplot(data=df,aes(x=Budget))
+v + geom_histogram(binwidth=10,aes(fill=Genre),colour="Black")
+
+v + geom_histogram(binwidth=10,aes(fill=Genre),colour="Black") + facet_grid(Genre~.)
+
+
+v + geom_histogram(binwidth=10,aes(fill=Genre),colour="Black") + facet_grid(Genre~.,scales="free")
+
+
+v + geom_histogram(binwidth=10,aes(fill=Genre),colour="Black") + facet_grid(Genre~Year)
+
+
+w <- ggplot(data=df,aes(x=RTRating,y=AudienceRating,colour=Genre))
+
+
+w + geom_point(size=3)
+
+w + geom_point(size=3) + facet_grid(Genre~Year)
+
+w + geom_point(size=3) + geom_smooth() + facet_grid(Genre~Year)
+
+w + geom_point(aes(size=Budget)) + geom_smooth() + facet_grid(Genre~Year)
+
+m <- ggplot(data=df,aes(x=RTRating,y=AudienceRating,size=Budget,colour=Genre))
+
+m + geom_point()
+
+m + geom_point()+xlim(50,100) + ylim(50,100)
+
+
+# Might not work well always
+
+n <- ggplot(data=df,aes(x=Budget))
+n+geom_histogram(binwidth=10,aes(fill=Genre),colour="Black")
+
+n + geom_histogram(binwidth=10,aes(fill=Genre),colour="Black") + ylim(0,50)
+
+# instead - zoom
+
+n + geom_histogram(binwidth=10,aes(fill=Genre),color="Black") + coord_cartesian(ylim=c(0,50))
+
+w + geom_point(aes(size=Budget)) + geom_smooth() + facet_grid(Genre~Year) + coord_cartesian(ylim=c(0,100))
+
+## Theme
+
+o <- ggplot(data=df,aes(x=Budget))
+
+h <- o + geom_histogram(binwidth=10,aes(fill=Genre),colour="Black")
+
+h
+
+h + xlab("Money Axis") + ylab("Number of Movies") +
+  ggtitle("Movie Budget Distribution")+theme(axis.title.x = element_text(colour="DarkGreen",size=15),axis.title.y = element_text(colour="Red",size=15),
+                                                          axis.text.x=element_text(size=10),
+                                                          axis.text.y=element_text(size=10),
+                                                          legend.title = element_text(size=15),
+                                                          legend.text = element_text(size=10),
+                                                            legend.position=c(1,1),
+                                                            legend.justification=c(1,1),
+                                                          plot.title = element_text(colour="darkblue",size=20,family="Times New Roman"))
+
+```
+
+
+The movie reviews website was very happy with your deliverable for the previous assignment and now they have a new request for you. The previous consultant had created a chart for them which is illustrated on the next slide. However, the R code used to create the diagram has since been lost and cannot be recovered. Your task is to come up with the code that will re-create the same chart making it look as close as possible to the original. A new dataset has been supplied.
+
+
+```{r}
+
+df <- read.csv("C://Users//kabali//Downloads//Section6-Homework-Data.csv")
+
+colnames(df) <- c("Day","Director","Genre","Title","Date","Studio","Gross","Budget","IMDBRating","MovieLensRating","OverseasMillion","Overseas","ProfitMillion","Profit","Runtime","USMillion","GrossUS")
+
+df <- df[(df$Genre %in% c("action","adventure","animation","comedy","drama")),]
+
+
+df <- df[(df$Studio %in% c("Buena Vista Studios","WB","Fox","Universal","Sony","Paramount Pictures")),]
+
+h <- ggplot(data=df,aes(x=Genre,y=GrossUS))
+
+h + geom_jitter(aes(size=Budget,colour=Studio)) + geom_boxplot(alpha=0.7,outlier.colour=NA) +xlab("Genre")+ylab("Gross % US")+ggtitle("Domestic Gross % by Genre") + theme(
+  axis.title.x = element_text(colour="Blue",size=30),
+  axis.title.y = element_text(colour="blue",size=30),
+  axis.text.x = element_text(size=20),
+  axis.text.y = element_text(size=20),
+  plot.title = element_text(size=40),
+  legend.title = element_text(size=20),
+  legend.text = element_text(size=20)
+#  text = element_text(family="Comic Sans MS")
+  
+)
+
+h$labels$size <- "Budget $M"
+h
+```
+
+
 
